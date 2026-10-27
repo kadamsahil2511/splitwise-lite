@@ -31,11 +31,11 @@ Expenses and settlements are immutable records. Amounts and calculations use int
 
 ## Deployment handoff
 
-The root [render.yaml](render.yaml) defines the Express web service and a free Render PostgreSQL database. Connect this GitHub repository as a Render Blueprint. It installs dependencies, applies migrations, starts the backend, and checks `/health`. The external uptime bot can GET `https://<your-service>.onrender.com/health` every 10–14 minutes. Render's own health checks monitor readiness; the external bot supplies ordinary inbound traffic for the free service. [Render's free web service sleeps after 15 minutes of inactivity](https://render.com/docs/free).
+The backend is live at `https://splitwise-lite-2mi4.onrender.com`. Its Render web service uses root directory `backend/`, build command `npm install --include=dev && npm run db:migrate`, start command `npm start`, and health check path `/health`. Set `DATABASE_URL` to the Render database's **internal** URL, `NODE_ENV=production`, and `FRONTEND_ORIGIN=https://splitwise.kadamsahil.com`. The root [render.yaml](render.yaml) also defines a Blueprint for a fresh deployment. An external uptime bot can GET `https://splitwise-lite-2mi4.onrender.com/health` every 10–14 minutes. [Render's free web service sleeps after 15 minutes of inactivity](https://render.com/docs/free).
 
-For Vercel, import this repository with **Root Directory `frontend`**, **Framework Vite**, and **Build Command `npm run build`**. Set `VITE_API_URL` to the deployed Render origin, such as `https://splitwise-lite-api.onrender.com`, without a trailing `/api`. Connect `splitwise.kadamsahil.com` in Vercel and add the DNS record Vercel shows. The Render `FRONTEND_ORIGIN` in `render.yaml` already permits that exact domain. Deploy the frontend after the backend URL is known.
+For Vercel, import this repository with **Root Directory `frontend`**, **Framework Vite**, and **Build Command `npm run build`**. Set `VITE_API_URL=https://splitwise-lite-2mi4.onrender.com` (without `/api`). Connect `splitwise.kadamsahil.com` in Vercel and add the DNS record Vercel shows. The Render `FRONTEND_ORIGIN` already permits that exact domain.
 
-**Data lifetime:** Render's free PostgreSQL database [expires 30 days after creation and has no backups](https://render.com/docs/free). Upgrade the database or use a persistent PostgreSQL provider before storing anything you need to keep. An uptime bot does not change this database limit.
+**Data lifetime:** This free Render PostgreSQL database expires **November 26, 2026** and [has no backups](https://render.com/docs/free). Upgrade the database or use a persistent PostgreSQL provider before storing anything you need to keep. An uptime bot does not change this database limit.
 
 ## Project files
 
