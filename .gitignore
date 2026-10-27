@@ -1,2 +1,10 @@
 # This is a .gitignore file for a Node.js project
 .env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+!**/.env.example
+node_modules/
+frontend/dist/
+.DS_Store

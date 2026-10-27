@@ -1,0 +1,22 @@
+{
+  "name": "@splitwise-lite/backend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "test": "node --test",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.45.4",
+    "express": "^5.1.0",
+    "pg": "^8.13.3"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.0"
+  }
+}
